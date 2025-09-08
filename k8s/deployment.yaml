@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-hpa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-hpa
+  template:
+    metadata:
+      labels:
+        app: flask-hpa
+    spec:
+      containers:
+        - name: flask-hpa
+          image: flask-hpa:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: "100m"
+            limits:
+              cpu: "500m"
+
