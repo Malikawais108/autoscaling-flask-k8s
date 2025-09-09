@@ -41,7 +41,7 @@ pipeline {
             steps {
                 echo "Pushing image to Docker Hub..."
                 script {
-                    docker.withRegistry('', DOCKERHUB_CREDS) {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDS) {
                         docker.image("${IMAGE_NAME}").push('latest')
                     }
                 }
@@ -69,4 +69,3 @@ pipeline {
         }
     }
 }
-
