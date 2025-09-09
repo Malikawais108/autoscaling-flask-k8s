@@ -21,7 +21,7 @@ pipeline {
                     sudo apt update
                     sudo apt install -y python3 python3-pip
                     pip3 install -r requirements.txt
-                    python3 -m unittest discover || echo "No tests found"
+                    python3 -m unittest discover -s . -p "test_*.py"
                 '''
             }
         }
