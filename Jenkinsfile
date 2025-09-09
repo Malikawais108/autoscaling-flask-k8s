@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "malikawais108/flask-hpa"
         DOCKERHUB_CREDS = credentials('dockerhub-creds')
+        VENV_PATH = 'venv'
     }
 
     stages {
@@ -15,10 +16,14 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                echo 'Running Python unit tests...'
+                echo 'Setting up Python virtual environment and running unit tests...'
                 sh '''
-                    pip3 install -r requirements.txt
-                    python3 -m unittest discover -s . -p "test_*.py"
+                    python3 -m venv $VENV_PATH
+                    . $VENV_PATH/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                    python -m unittest discover -s . -p "test_*.py"
+                    deactivate
                 '''
             }
         }
@@ -64,3 +69,4 @@ pipeline {
         }
     }
 }
+
