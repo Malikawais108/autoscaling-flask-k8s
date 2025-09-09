@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -18,8 +17,6 @@ pipeline {
             steps {
                 echo 'Running Python unit tests...'
                 sh '''
-                    sudo apt update
-                    sudo apt install -y python3 python3-pip
                     pip3 install -r requirements.txt
                     python3 -m unittest discover -s . -p "test_*.py"
                 '''
