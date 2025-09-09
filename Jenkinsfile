@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "malikawais108/flask-hpa"
+        IMAGE_NAME = "awaismalak/flask-hpa"
         DOCKERHUB_CREDS = credentials('dockerhub-creds')
         VENV_PATH = 'venv'
     }
