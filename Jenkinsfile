@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -17,10 +18,10 @@ pipeline {
             steps {
                 echo 'Running Python unit tests...'
                 sh '''
-                    if [ -f requirements.txt ]; then
-                        pip install -r requirements.txt
-                    fi
-                    python -m unittest discover || echo "No tests found"
+                    sudo apt update
+                    sudo apt install -y python3 python3-pip
+                    pip3 install -r requirements.txt
+                    python3 -m unittest discover || echo "No tests found"
                 '''
             }
         }
@@ -29,7 +30,7 @@ pipeline {
             steps {
                 echo "Building Docker image: ${IMAGE_NAME}"
                 script {
-                    docker.build("${IMAGE_NAME}")
+                    docker.build("${IMAGE_NAME}", ".")
                 }
             }
         }
